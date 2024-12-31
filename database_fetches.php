@@ -24,4 +24,34 @@ function get_all_users($conn){
 
 	return $users;
 }*/ // end of file
+
+
+
+
+
+function insert_user($conn, $data) {
+    $sql = "INSERT INTO users (full_name, username, email_id, phone, password, role) VALUES(?,?,?,?,?,?)";
+    try {
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($data);
+        // Log a message indicating success
+        echo "User inserted successfully!";
+    } catch (Exception $e) {
+        // Log the error message and die() to stop execution
+        error_log("Error: " . $e->getMessage()); // Logs the error message
+        echo "Error occurred while inserting user: " . $e->getMessage();
+        die(); // Stops the execution so you can see the error message
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 ?>

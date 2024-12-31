@@ -267,3 +267,53 @@
 .edit-btn:hover{
 	opacity: .6;
 }
+
+.addbtn {
+    display: inline-block;
+    padding: 10px 15px;            /* Adequate padding */
+    background: #006CE0;           /* Blue background */
+    color: #fff;                   /* White text color */
+    font-size: 16px;                /* Font size */
+    cursor: pointer;               /* Pointer cursor on hover */
+    border-radius: 5px;             /* Rounded corners */
+    text-decoration: none;          /* Remove underline if it's a link */
+    transition: background 0.3s ease, opacity 0.3s ease;  /* Smooth transition */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19); /* Add shadow for depth */
+}
+
+.addbtn:hover {
+    background: #005bb5;           /* Darker blue on hover */
+    opacity: 0.8;                  /* Slight opacity change on hover */
+}
+
+.input-login {
+	border: 2px solid #ccc;
+	width: 100%;
+	padding: 10px;
+	font-size: 15px;
+	outline: none;
+	border-radius: 5px;
+	display: block;
+}
+
+.input-login:focus{
+	border-color: #555;
+}
+
+.danger {
+    color: red;
+    background-color: #f8d7da;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    color: green;
+    background-color: #d4edda;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    margin-top: 10px;
+    border-radius: 5px;
+}

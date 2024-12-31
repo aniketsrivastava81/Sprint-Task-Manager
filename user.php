@@ -12,7 +12,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     $users = get_all_users($conn);
 
     // Debugging: Check if $users is populated
-    print_r($users); // This will print the $users array for debugging
+    //print_r($users); // This will print the $users array for debugging
 ?>
 
     <script type="text/javascript">
@@ -42,24 +42,37 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 
     <div class="body">
     	<section> 
+    					<h4 class="title">Manage Users </h4>
+    					<a href="add-user.php" class="addbtn">Add User</a>
 
-    		<table class="main-table">
+    			<?php if ($users != 0) { ?>
+			<table class="main-table">
 				<tr>
 					<th>#</th>
+					<th> ID </th>
 					<th>Full Name</th>
 					<th>Username</th>
 					<th>role</th>
 					<th>Action</th>
-
 				</tr>
-					<td> 1</td>
-					<td> UserName</td>
-					<td> user1</td>
-					<td> employee </td>
+				<?php $i=0; foreach ($users as $user) { ?>
+				<tr>
+					<td><?=++$i?></td>
+					<td><?=$user['user_id']?></td>
+					<td><?=$user['full_name']?></td>
+					<td><?=$user['username']?></td>
+					<td><?=$user['role']?></td>
 					<td>
-						<a href="edit-user.php?id=<?=$_SESSION['username']?>" class="edit-btn">Edit</a>
-						<a href="delete-user.php?id=<?=($_SESSION['username'])?>" class="delete-btn">Delete</a>
+						<a href="edit-user.php?id=<?php $user['user_id']?>" class="edit-btn">Edit</a>
+						<a href="delete-user.php?id=<?php $user['user_id']?>" class="delete-btn">Delete</a>
 					</td>
+				</tr>
+			   <?php	} ?>
+			</table>
+		<?php }else { ?>
+			<h3>Empty</h3>
+		<?php  }?>
+			
 
     	</section>
     </div>
