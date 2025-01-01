@@ -13,22 +13,6 @@ function get_all_users($conn){
     return $users;
 }
 
-/*function get_all_users($conn){
-	$sql = "SELECT * FROM user WHERE role =? ";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute(["employee"]);
-
-	if($stmt->rowCount() > 0){
-		$users = $stmt->fetchAll();
-	}else $users = 0;
-
-	return $users;
-}*/ // end of file
-
-
-
-
-
 function insert_user($conn, $data) {
     $sql = "INSERT INTO users (full_name, username, email_id, phone, password, role) VALUES(?,?,?,?,?,?)";
     try {
@@ -43,15 +27,6 @@ function insert_user($conn, $data) {
         die(); // Stops the execution so you can see the error message
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 ?>

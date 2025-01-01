@@ -63,8 +63,8 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 					<td><?=$user['username']?></td>
 					<td><?=$user['role']?></td>
 					<td>
-						<a href="edit-user.php?id=<?php $user['user_id']?>" class="edit-btn">Edit</a>
-						<a href="delete-user.php?id=<?php $user['user_id']?>" class="delete-btn">Delete</a>
+						<a href="edit-user.php?user_id=<?php echo $user['user_id'];?>" class="edit-btn">Edit</a>
+						<a href="edit_delete_user.php?user_id=<?php echo $user['user_id'];?>" class="delete-btn">Delete</a>
 					</td>
 				</tr>
 			   <?php	} ?>

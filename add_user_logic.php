@@ -35,6 +35,10 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             exit();
         }
 
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+
+
         // SQL query to insert the user data
         $data = array($full_name, $user_name, $email, $phone, $password, "employee");
 
