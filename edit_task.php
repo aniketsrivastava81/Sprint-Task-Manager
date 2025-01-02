@@ -39,11 +39,12 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         $priority = $_POST['priority'];
         $visibility = $_POST['visibility'];
         $duration = $_POST['duration'];
+        $due_date = $_POST['due_date'];  // Handle due_date here
 
-        // SQL query to update task data
-        $update_sql = "UPDATE tasks SET title = ?, description = ?, status = ?, priority = ?, visibility = ?, duration = ? WHERE task_id = ?";
+        // SQL query to update task data, including the due_date field
+        $update_sql = "UPDATE tasks SET title = ?, description = ?, status = ?, priority = ?, visibility = ?, duration = ?, due_date = ? WHERE task_id = ?";
         $stmt = $conn->prepare($update_sql);
-        $stmt->execute([$title, $description, $status, $priority, $visibility, $duration, $task_id]);
+        $stmt->execute([$title, $description, $status, $priority, $visibility, $duration, $due_date, $task_id]);
 
         $successMessage = "Task updated successfully!";
         header("Location: task-list.php?success=" . urlencode($successMessage));
@@ -124,6 +125,12 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
                         <option value="Short" <?php if ($task['duration'] == 'Short') echo 'selected'; ?>>Short</option>
                         <option value="Unknown" <?php if ($task['duration'] == 'Unknown') echo 'selected'; ?>>Unknown</option>
                     </select><br>
+                </div>
+                
+                <!-- Add a due_date input field -->
+                <div class="input-holder">
+                    <label>Due Date</label>
+                    <input type="date" name="due_date" value="<?php echo htmlspecialchars($task['due_date']); ?>" class="input-login"><br>
                 </div>
 
                 <button class="edit-btn">Update Task</button>

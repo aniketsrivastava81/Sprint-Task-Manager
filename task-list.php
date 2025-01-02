@@ -7,16 +7,115 @@ error_reporting(E_ALL);
 if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     // Include the database connection
     include "SQL_Connection.php";
+    include "database_fetches.php";
 
-    // SQL query to fetch all tasks
-    $sql = "SELECT tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.priority, tasks.visibility, tasks.duration, users.full_name AS assigned_to, tasks.created_at 
-            FROM tasks 
-            LEFT JOIN users ON tasks.assigned_to = users.user_id"; // Joining the users table to get the 'assigned_to' employee name
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+    // Define the functions
+    function get_all_tasks($conn) {
+        $sql = "SELECT * FROM tasks WHERE status != 'completed' ORDER BY task_id DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
 
-    // Fetch all tasks
-    $tasks = $stmt->fetchAll();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll();
+        } else {
+            return 0;
+        }
+    }
+
+    function count_tasks($conn) {
+        $sql = "SELECT task_id FROM tasks WHERE status != 'completed'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        return $stmt->rowCount();
+    }
+
+    function get_all_tasks_due_today($conn) {
+        $sql = "SELECT * FROM tasks WHERE due_date = CURDATE() AND status != 'completed' ORDER BY task_id DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll();
+        } else {
+            return 0;
+        }
+    }
+
+    function count_tasks_due_today($conn) {
+        $sql = "SELECT task_id FROM tasks WHERE due_date = CURDATE() AND status != 'completed'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        return $stmt->rowCount();
+    }
+
+    function get_all_tasks_overdue($conn) {
+        $sql = "SELECT * FROM tasks WHERE due_date < CURDATE() AND status != 'completed' ORDER BY task_id DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll();
+        } else {
+            return 0;
+        }
+    }
+
+    function count_tasks_overdue($conn) {
+        $sql = "SELECT task_id FROM tasks WHERE due_date < CURDATE() AND status != 'completed'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        return $stmt->rowCount();
+    }
+
+    function get_all_tasks_NoDeadline($conn) {
+        $sql = "SELECT * FROM tasks WHERE status != 'completed' AND (due_date IS NULL OR due_date = '0000-00-00') ORDER BY task_id DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll();
+        } else {
+            return 0;
+        }
+    }
+
+    function count_tasks_NoDeadline($conn) {
+        $sql = "SELECT task_id FROM tasks WHERE status != 'completed' AND (due_date IS NULL OR due_date = '0000-00-00')";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        return $stmt->rowCount();
+    }
+
+    // Main logic for task filtering based on due date
+    $text = "All Task";
+    if (isset($_GET['due_date'])) {
+        if ($_GET['due_date'] == "Due Today") {
+            $text = "Due Today";
+            $tasks = get_all_tasks_due_today($conn);
+            $num_task = count_tasks_due_today($conn);
+        } else if ($_GET['due_date'] == "Overdue") {
+            $text = "Overdue";
+            $tasks = get_all_tasks_overdue($conn);
+            $num_task = count_tasks_overdue($conn);
+        } else if ($_GET['due_date'] == "No Deadline") {
+            $text = "No Deadline";
+            $tasks = get_all_tasks_NoDeadline($conn);
+            $num_task = count_tasks_NoDeadline($conn);
+        } else {
+            $tasks = get_all_tasks($conn);
+            $num_task = count_tasks($conn);
+        }
+    } else {
+        $tasks = get_all_tasks($conn);
+        $num_task = count_tasks($conn);
+    }
+
+    // Fetch all users for assigning tasks
+    $users = get_all_users($conn);
 
 ?>
 
@@ -29,7 +128,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 </head>
 <body>
     <input type="checkbox" id="checkbox">
-    <?php include "header.php" ?>
+    <?php include "header.php"; ?>
 
     <h2 class="u-name">Task List</h2>
 
@@ -38,57 +137,65 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             <h4 class="title">All Tasks</h4>
             <a href="create-task.php" class="addbtn">Create Task</a>
 
-            <!-- Display success or error messages -->
-            <?php if (isset($_GET['error'])) { ?>
-                <div class="danger" role="alert">
-                    <?php echo stripcslashes($_GET['error']); ?>
-                </div>
-            <?php } ?>
+            <!-- Filter buttons -->
+            <div class="filter-buttons">
+                <a href="task-list.php?due_date=Due Today">Due Today</a>
+                <a href="task-list.php?due_date=Overdue">Overdue</a>
+                <a href="task-list.php?due_date=No Deadline">No Deadline</a>
+                <a href="task-list.php">All Tasks</a>
+            </div>
 
+            <!-- Display success or error messages -->
             <?php if (isset($_GET['success'])) { ?>
                 <div class="success" role="alert">
                     <?php echo stripcslashes($_GET['success']); ?>
                 </div>
             <?php } ?>
 
+            <h4 class="title-2"><?=$text?> (<?=$num_task?>)</h4>
+
             <!-- Display tasks in a table -->
-            <table class="task-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Assigned To</th>
-                        <th>Status</th>
-                        <th>Priority</th>
-                        <th>Visibility</th>
-                        <th>Duration</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (count($tasks) > 0) { ?>
-                        <?php foreach ($tasks as $task) { ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($task['title']); ?></td>
-                                <td><?php echo htmlspecialchars($task['assigned_to']); ?></td>
-                                <td><?php echo htmlspecialchars($task['status']); ?></td>
-                                <td><?php echo htmlspecialchars($task['priority']); ?></td>
-                                <td><?php echo htmlspecialchars($task['visibility']); ?></td>
-                                <td><?php echo htmlspecialchars($task['duration']); ?></td>
-                                <td><?php echo htmlspecialchars($task['created_at']); ?></td>
-                                <td>
-                                    <a href="edit_task.php?id=<?php echo $task['task_id']; ?>" class="edit-btn">Edit</a>
-                                    <a href="edit_task_delete.php?id=<?php echo $task['task_id']; ?>" class="delete-btn">Delete</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    <?php } else { ?>
+            <?php if ($tasks != 0) { ?>
+                <table class="task-table">
+                    <thead>
                         <tr>
-                            <td colspan="8">No tasks found!</td>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Assigned To</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i=0; foreach ($tasks as $task) { ?>
+                        <tr>
+                            <td><?= ++$i ?></td>
+                            <td><?= htmlspecialchars($task['title']) ?></td>
+                            <td><?= htmlspecialchars($task['description']) ?></td>
+                            <td>
+                                <?php 
+                                foreach ($users as $user) {
+                                    if($user['user_id'] == $task['assigned_to']){
+                                        echo htmlspecialchars($user['full_name']);
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $task['due_date'] ?: "No Deadline"; ?></td>
+                            <td><?= htmlspecialchars($task['status']) ?></td>
+                            <td>
+                                <a href="edit_task.php?id=<?= $task['task_id'] ?>" class="edit-btn">Edit</a>
+                                <a href="edit_task_delete.php?id=<?= $task['task_id'] ?>" class="delete-btn">Delete</a>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <h3>No tasks found!</h3>
+            <?php } ?>
         </section>
     </div>
 
@@ -99,7 +206,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 } else {
     // If the user is not logged in, redirect to login page
     $errormessage = "We require you to login to use this system!";
-    header("Location: login.php?error=" . urlencode($errormessage));  // Redirect to login.php with error
+    header("Location: login.php?error=" . urlencode($errormessage));
     exit();
 }
 ?>

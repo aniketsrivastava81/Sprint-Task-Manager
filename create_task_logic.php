@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 
     // Check if the form is submitted correctly
-    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['assigned_to']) && isset($_POST['status']) && isset($_POST['priority']) && isset($_POST['visibility']) && isset($_POST['duration'])) {
+    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['assigned_to']) && isset($_POST['status']) && isset($_POST['priority']) && isset($_POST['visibility']) && isset($_POST['duration']) && isset($_POST['due_date'])) {
 
         // Include the database connection
         include "SQL_Connection.php";
@@ -27,43 +27,35 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         $priority = validate_input($_POST['priority']);
         $visibility = validate_input($_POST['visibility']);
         $duration = validate_input($_POST['duration']);
+        $due_date = validate_input($_POST['due_date']);
         
         // Check if any required fields are empty
-        if (empty($title) || empty($description) || empty($assigned_to) || empty($status) || empty($priority) || empty($visibility) || empty($duration)) {
+        if (empty($title) || empty($description) || empty($assigned_to) || empty($status) || empty($priority) || empty($visibility) || empty($duration) || empty($due_date)) {
             $errormessage = "All fields are required!";
             header("Location: create-task.php?error=" . urlencode($errormessage));  // Redirect with error message
             exit();
         }
 
-        // SQL query to insert the task data
-        $sql = "INSERT INTO tasks (title, description, assigned_to, status, priority, visibility, duration) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        // SQL query to insert the task data including 'due_date'
+        $sql = "INSERT INTO tasks (title, description, assigned_to, status, priority, visibility, duration, due_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             $stmt = $conn->prepare($sql);
-            $stmt->execute([$title, $description, $assigned_to, $status, $priority, $visibility, $duration]);
+            $stmt->execute([$title, $description, $assigned_to, $status, $priority, $visibility, $duration, $due_date]);
 
-            // Redirect to task list page with success message
+            // Redirect with success message
             $successMessage = "Task created successfully!";
             header("Location: task-list.php?success=" . urlencode($successMessage));
             exit();
-
         } catch (Exception $e) {
             // Error handling
             $errormessage = "Error occurred while creating task: " . $e->getMessage();
             header("Location: create-task.php?error=" . urlencode($errormessage));  // Redirect with error message
             exit();
         }
-
-    } else {
-        // If the form is not submitted correctly, redirect to create-task.php with error
-        $errormessage = "Form was submitted incorrectly.";
-        header("Location: create-task.php?error=" . urlencode($errormessage));
-        exit();
     }
-
 } else {
-    // If the user is not logged in, redirect to login page
-    $errormessage = "We require you to login to use this system!";
-    header("Location: login.php?error=" . urlencode($errormessage));  // Redirect to login.php with error
+    // If not logged in, redirect to login
+    header("Location: login.php");
     exit();
 }
 ?>

@@ -15,7 +15,7 @@
                 <li><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a></li>
                 <li><a href="user.php"><i class="fa fa-user" aria-hidden="true"></i><span>Manage Users</span></a></li>
                 <li><a href="create-task.php"><i class="fa fa-plus" aria-hidden="true"></i><span>Create Tasks</span></a></li>
-                <li><a href="tasks.php"><i class="fa fa-tasks" aria-hidden="true"></i><span>All Tasks</span></a></li>
+                <li><a href="task-list.php"><i class="fa fa-tasks" aria-hidden="true"></i><span>All Tasks</span></a></li>
                 <li><a href="notifications.php"><i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span></a></li>
                 <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a></li>
                 <li><div class="user-p"> <img src="./user.jpg"> <h4><?php echo $_SESSION['username']; ?></h4> </div> </li>
@@ -26,7 +26,7 @@
         <nav class="navigation-icons-bar">
             <ul>
                 <li><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a></li>
-                <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span>Tasks</span></a></li>
+                <li><a href="employee-task.php"><i class="fa fa-tasks" aria-hidden="true"></i><span>Tasks</span></a></li>
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></a></li>
                 <li><a href="notifications.php"><i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span></a></li>
                 <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a></li>

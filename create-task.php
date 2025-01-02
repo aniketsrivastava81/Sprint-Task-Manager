@@ -105,6 +105,12 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
                     </select><br>
                 </div>
 
+                <!-- Added Due Date field -->
+                <div class="input-holder">
+                    <label>Due Date</label>
+                    <input type="date" name="due_date" class="input-login" required><br>
+                </div>
+
                 <button class="edit-btn">Create Task</button>
             </form>
         </section>
