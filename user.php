@@ -43,8 +43,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     <div class="body">
     	<section> 
     					<h4 class="title">Manage Users </h4>
-    					<a href="add-user.php" class="addbtn">Add User</a>
-
+    					
     			<?php if ($users != 0) { ?>
 			<table class="main-table">
 				<tr>
@@ -66,9 +65,10 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 						<a href="edit-user.php?user_id=<?php echo $user['user_id'];?>" class="edit-btn">Edit</a>
 						<a href="edit_delete_user.php?user_id=<?php echo $user['user_id'];?>" class="delete-btn">Delete</a>
 					</td>
-				</tr>
-			   <?php	} ?>
-			</table>
+				</tr> 
+			   <?php	} ?> 
+			</table> 
+					<br> <br> <br> <a href="add-user.php" class="addbtn">Add User</a>
 		<?php }else { ?>
 			<h3>Empty</h3>
 		<?php  }?>

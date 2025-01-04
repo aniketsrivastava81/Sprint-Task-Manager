@@ -8,88 +8,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     // Include the database connection
     include "SQL_Connection.php";
     include "database_fetches.php";
-
-    // Define the functions
-    function get_all_tasks($conn) {
-        $sql = "SELECT * FROM tasks WHERE status != 'completed' ORDER BY task_id DESC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        if($stmt->rowCount() > 0){
-            return $stmt->fetchAll();
-        } else {
-            return 0;
-        }
-    }
-
-    function count_tasks($conn) {
-        $sql = "SELECT task_id FROM tasks WHERE status != 'completed'";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        return $stmt->rowCount();
-    }
-
-    function get_all_tasks_due_today($conn) {
-        $sql = "SELECT * FROM tasks WHERE due_date = CURDATE() AND status != 'completed' ORDER BY task_id DESC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        if($stmt->rowCount() > 0){
-            return $stmt->fetchAll();
-        } else {
-            return 0;
-        }
-    }
-
-    function count_tasks_due_today($conn) {
-        $sql = "SELECT task_id FROM tasks WHERE due_date = CURDATE() AND status != 'completed'";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        return $stmt->rowCount();
-    }
-
-    function get_all_tasks_overdue($conn) {
-        $sql = "SELECT * FROM tasks WHERE due_date < CURDATE() AND status != 'completed' ORDER BY task_id DESC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        if($stmt->rowCount() > 0){
-            return $stmt->fetchAll();
-        } else {
-            return 0;
-        }
-    }
-
-    function count_tasks_overdue($conn) {
-        $sql = "SELECT task_id FROM tasks WHERE due_date < CURDATE() AND status != 'completed'";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        return $stmt->rowCount();
-    }
-
-    function get_all_tasks_NoDeadline($conn) {
-        $sql = "SELECT * FROM tasks WHERE status != 'completed' AND (due_date IS NULL OR due_date = '0000-00-00') ORDER BY task_id DESC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        if($stmt->rowCount() > 0){
-            return $stmt->fetchAll();
-        } else {
-            return 0;
-        }
-    }
-
-    function count_tasks_NoDeadline($conn) {
-        $sql = "SELECT task_id FROM tasks WHERE status != 'completed' AND (due_date IS NULL OR due_date = '0000-00-00')";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
-
-        return $stmt->rowCount();
-    }
-
     // Main logic for task filtering based on due date
     $text = "All Task";
     if (isset($_GET['due_date'])) {
@@ -135,15 +53,8 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     <div class="body">
         <section>
             <h4 class="title">All Tasks</h4>
-            <a href="create-task.php" class="addbtn">Create Task</a>
-
+            
             <!-- Filter buttons -->
-            <div class="filter-buttons">
-                <a href="task-list.php?due_date=Due Today">Due Today</a>
-                <a href="task-list.php?due_date=Overdue">Overdue</a>
-                <a href="task-list.php?due_date=No Deadline">No Deadline</a>
-                <a href="task-list.php">All Tasks</a>
-            </div>
 
             <!-- Display success or error messages -->
             <?php if (isset($_GET['success'])) { ?>
@@ -152,11 +63,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
                 </div>
             <?php } ?>
 
-            <h4 class="title-2"><?=$text?> (<?=$num_task?>)</h4>
+
 
             <!-- Display tasks in a table -->
             <?php if ($tasks != 0) { ?>
-                <table class="task-table">
+                <table class="main-table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -190,9 +101,22 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
                                 <a href="edit_task_delete.php?id=<?= $task['task_id'] ?>" class="delete-btn">Delete</a>
                             </td>
                         </tr>
+
                         <?php } ?>
                     </tbody>
+
                 </table>
+<div class="filter-buttons"> <br> <br>                             
+				<h4 class="title-2"><?=$text?> (<?=$num_task?>)</h4> <br> 
+            	<a href="create-task.php" class="addbtn">Create Task</a>
+                <a href="task-list.php?due_date=Due Today" class="addbtn" >Due Today</a>
+                <a href="task-list.php?due_date=Overdue" class="addbtn">Overdue</a>
+                <a href="task-list.php?due_date=No Deadline" class="addbtn">No Deadline</a>
+                <a href="task-list.php" class="addbtn">All Tasks</a>
+
+
+            </div>
+
             <?php } else { ?>
                 <h3>No tasks found!</h3>
             <?php } ?>

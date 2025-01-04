@@ -5,32 +5,33 @@
     font-family: arial, sans-serif;
 }
 
+/* Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-/*    padding: 30px 30px;  */
-    background: linear-gradient(90deg, #212130 0%, #39304A 100%);
+    padding: 30px 30px;
+    background: linear-gradient(90deg, #212130 0%, #D1D1D1 100%); /* Gradient from dark to light */
     color: #fff;
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
-    z-index: 1000; /* Ensure it appears on top of other elements */
+    z-index: 1000;
     width: 100%;
     height: 100px;
-    transition: padding 0.5s ease; /* Smooth transition */
+    transition: padding 0.5s ease;
 }
 
+/* Navigation Icons Bar */
 .navigation-icons-bar {
     display: flex;
-    justify-content: space-between; /* Distribute items evenly */
-    width: calc(100% - 100px); /* Adjust width as needed */
-    padding: 0 15px; /* Match header padding */
-    transition: width 0.5s ease, padding 0.5s ease; /* Smooth transition */
+    justify-content: space-between;
+    width: calc(100% - 200px);
+    padding: 0 15px;
+    transition: width 0.5s ease, padding 0.5s ease;
 }
-
 .navigation-icons-bar ul {
-    display: flex; /* Align items horizontally */
+    display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -39,28 +40,53 @@
 .navigation-icons-bar ul li {
     font-size: 16px;
     padding: 15px;
-    opacity: 1; /* Ensure items are fully visible */
-    transition: opacity 0.5s ease; /* Smooth transition */
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
-#checkbox:checked ~ .header {
-    padding: 30px 15px; /* Reduce padding when checked */
+/* Push the last navbar item to the right */
+.navigation-icons-bar ul li:last-child {
+    margin-left: auto; /* Push last item to the right */
+}
+
+
+#checkbox{
+    display: none;
+}
+
+
+#checkbox:checked ~ .header .navigation-icons-bar ul li span {
+    visibility: hidden; /* Hide the text */
+    opacity: 0; /* Ensure the text is not visible */
+}
+
+#checkbox:checked ~ .header .navigation-icons-bar ul li a {
+    visibility: hidden; /* Hide the text to prevent it from affecting layout */
+}
+
+#checkbox:checked ~ .header .navigation-icons-bar ul li i {
+    visibility: visible; /* Icons remain visible */
+    opacity: 1; /* Ensure icons don't fade */
+}
+
+
+
+/*#checkbox:checked ~ .header {
+    padding: 30px 15px;
 }
 
 #checkbox:checked ~ .header .navigation-icons-bar {
-    width: 60px; /* Reduce width when checked */
-    padding: 0 5px; /* Reduce padding when checked */
+    width: 60px;
+    padding: 0 5px;
 }
 
 #checkbox:checked ~ .header .navigation-icons-bar ul li {
-    opacity: 20%; /* Hide items */
-}
+    opacity: 0%;
+}*/
 
 .navigation-icons-bar ul li:hover {
     background: #127b8e;
 }
-
-
 
 .navigation-icons-bar ul li a {
     text-decoration: none;
@@ -69,19 +95,17 @@
     letter-spacing: 1px;
 }
 
-
-.navigation-icons-bar .active  a {
-    color: #007b00 !important;  /* Highlight active item */
+.navigation-icons-bar .active a {
+    color: #007b00 !important;
 }
 
-.navigation-icons-bar .active  a i {
-    color: #007b00 !important;  /* Highlight active item */
+.navigation-icons-bar .active a i {
+    color: #007b00 !important;
 }
 
 .navigation-icons-bar ul .active:hover {
-	background: transparent;
+    background: transparent;
 }
-
 
 .navigation-icons-bar ul li a i {
     display: inline-block;
@@ -89,6 +113,7 @@
     font-size: 23px;
 }
 
+/* User Info Section */
 .u-name {
     font-size: 20px;
     padding-left: 17px;
@@ -112,7 +137,7 @@
     text-align: center;
     padding-left: 10px;
     padding-top: 0px;
-    transition: opacity 0.5s ease; /* Smooth transition */
+    transition: opacity 0.5s ease;
 }
 
 .user-p img {
@@ -125,179 +150,149 @@
     padding: 5px 0;
 }
 
-.body {
-    display: flex;
-}
-
-#navbtn {
-    display: inline-block;
-    margin-left: 47px;
-    font-size: 20px;
-    transition: 500ms color;
-}
-
-#checkbox {
-    display: none;
-}
-
-#checkbox:checked ~ .header .user-p {
-    opacity: 20%; /* Smooth transition */
-}
-
-#checkbox:not(:checked) ~ .header .user-p {
-    opacity: 1; /* Smooth transition */
-}
-
+/* Login Form Styling */
 .login-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
+
 .login-body form {
-	max-width:420px;
-	width: 90%;
+    max-width: 420px;
+    width: 90%;
 }
-
-
-
 
 .section-1 {
-	padding: 30px;
+    padding: 30px;
+    width: 100%;
+    height: 900px;
+    justify-content: center;
+    background: linear-gradient(45deg, #00CFFF, #FF8C00); /* Gradient background for section */
 }
+
 .section-1 .title {
     margin-bottom: 10px;
 }
-.section-1 .title a{
-	text-decoration: none;
-	display: inline-block;
+
+.section-1 .title a {
+    text-decoration: none;
+    display: inline-block;
     padding-left: 10px;
-	border: none;
-	background: #00CF22;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border: none;
+    background: #00CF22;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background 1s;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.section-1 .title a:hover {
+    opacity: .6;
 }
 
 .section-1 .title-2 {
     margin-bottom: 10px;
 }
-.section-1 .title-2 .btn{
-	text-decoration: none;
-	display: inline-block;
+
+.section-1 .title-2 .btn {
+    text-decoration: none;
+    display: inline-block;
     padding-left: 10px;
-	border: none;
-	background: #00CF22;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-.section-1 .title-2 .btn:hover{
-	opacity: .6;
-}
-.section-1 .title-2 a{
-	display: inline-block;
-	margin-left: 10px;
+    border: none;
+    background: #FF4D00;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background 1s;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-.section-1 {
-	width: 100%;
-	background: #ffe;
-}
-.section-1 .title a:hover{
-	opacity: .6;
+.section-1 .title-2 .btn:hover {
+    opacity: .6;
 }
 
+.section-1 .title-2 a {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Table Styling */
 .main-table, .main-table tr, .main-table th, .main-table td {
-  border: 1px solid #aaa;
-  border-collapse: collapse;
-  padding: 7px;
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    padding: 7px;
 }
+
 .main-table {
-	width: 90%;
-	margin-top: 30px;
+    width: 90%;
+    margin-top: 30px;
 }
 
-
-.delete-btn{
-	text-decoration: none;
-	display: inline-block;
+/* Button Styling */
+.delete-btn {
+    text-decoration: none;
+    display: inline-block;
     padding-left: 10px;
-	border: none;
-	background: #E00051;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-.delete-btn:hover{
-	opacity: .6;
+    border: none;
+    background: #D9534F; /* New color for delete button */
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background 1s;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.edit-btn{
-	text-decoration: none;
-	display: inline-block;
-    padding-left: 10px;
-	border: none;
-	background: #006CE0;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+.delete-btn:hover {
+    opacity: .6;
 }
-.edit-btn:hover{
-	opacity: .6;
+
+.edit-btn {
+    text-decoration: none;
+    display: inline-block;
+    padding-left: 10px;
+    border: none;
+    background: #5bc0de; /* New color for edit button */
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background 1s;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.edit-btn:hover {
+    opacity: .6;
 }
 
 .addbtn {
     display: inline-block;
-    padding: 10px 15px;            /* Adequate padding */
-    background: #006CE0;           /* Blue background */
-    color: #fff;                   /* White text color */
-    font-size: 16px;                /* Font size */
-    cursor: pointer;               /* Pointer cursor on hover */
-    border-radius: 5px;             /* Rounded corners */
-    text-decoration: none;          /* Remove underline if it's a link */
-    transition: background 0.3s ease, opacity 0.3s ease;  /* Smooth transition */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19); /* Add shadow for depth */
+    padding: 10px 15px;
+    background: #28a745; /* New color for add button */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
 }
 
 .addbtn:hover {
-    background: #005bb5;           /* Darker blue on hover */
-    opacity: 0.8;                  /* Slight opacity change on hover */
-}
-
-.input-login {
-	border: 2px solid #ccc;
-	width: 100%;
-	padding: 10px;
-	font-size: 15px;
-	outline: none;
-	border-radius: 5px;
-	display: block;
-}
-
-.input-login:focus{
-	border-color: #555;
+    background: #218838; /* Darker green on hover */
+    opacity: 0.8;
 }
 
 .danger {
@@ -316,4 +311,319 @@
     border: 1px solid #c3e6cb;
     margin-top: 10px;
     border-radius: 5px;
+}
+
+/* Login Input */
+.input-login {
+    border: 2px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    outline: none;
+    border-radius: 5px;
+    display: block;
+}
+
+.input-login:focus {
+    border-color: #555;
+}
+
+/* Table Centering */
+.main-table {
+    display: block;
+    padding: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Dashboard Styling */
+/*.dashboard {
+    display: flex;
+    max-width: 650px;
+    width: 95%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}*/
+
+
+.dashboard {
+    display: flex;
+    max-width: 650px;
+    width: 95%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+
+
+.dashboard-item {
+    text-align: center;
+    background: linear-gradient(45deg, #FF5733, #FFE933); /* Gradient card background */
+    width: 200px;
+    padding: 30px 5px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dashboard-item:hover {
+    transform: scale(1.05); /* Hover effect to scale the card */
+}
+
+.dashboard-item i {
+    display: block;
+    color: #fff;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.dashboard-item span {
+    display: block;
+    color: #fff;
+}
+
+/* General Page Styling */
+html body {
+    height: 100% !important; /* Ensure both html and body take up full height of the page */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Set the font */
+}
+
+body {
+    background-color: #f4f4f9; /* Set a light background for the entire page */
+}
+
+/* Page Load Animation */
+body {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* Notification Icon */
+.notification {
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    display: inline-block;
+    padding: 10px;
+}
+
+.notification i {
+    font-size: 24px;
+}
+
+#notificationNum {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* Notification Bar */
+.notification-bar {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    max-height: 400px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.open-notification {
+    display: block;
+}
+
+.notification-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-bar li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+.notification-bar li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.notification-bar li a:hover {
+    background-color: #f5f5f5;
+}
+
+.notification-bar li a mark {
+    background-color: yellow;
+}
+
+/* Highlighting unread notifications */
+.notification-item.unread {
+    font-weight: bold;
+    background-color: #f5f5f5;
+    border-left: 4px solid #ff0;
+}
+
+
+/* Edit Profile Form */
+.edit-profile-form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.edit-profile-form label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.edit-profile-form input[type="text"],
+.edit-profile-form input[type="email"],
+.edit-profile-form input[type="password"],
+.edit-profile-form input[type="file"],
+.edit-profile-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.edit-profile-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.edit-profile-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-form button:hover {
+    background-color: #0056b3;
+}
+
+.edit-profile-form .cancel-btn {
+    background-color: #ccc;
+}
+
+.edit-profile-form .cancel-btn:hover {
+    background-color: #aaa;
+}
+
+/* Profile Page */
+.profile-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profile-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info .info-text {
+    flex-grow: 1;
+    padding-left: 20px;
+}
+
+.profile-info .info-text h3 {
+    font-size: 22px;
+    color: #333;
+    margin: 0;
+}
+
+.profile-info .info-text p {
+    font-size: 16px;
+    color: #777;
+    margin: 5px 0;
+}
+
+.profile-actions {
+    text-align: center;
+}
+
+.profile-actions a {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-actions a:hover {
+    background-color: #218838;
+}
+
+.profile-actions .logout-btn {
+    background-color: #dc3545;
+}
+
+.profile-actions .logout-btn:hover {
+    background-color: #c82333;
 }
