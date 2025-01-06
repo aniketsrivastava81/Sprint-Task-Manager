@@ -52,7 +52,7 @@ $notifications = $notificationStmt->fetchAll(PDO::FETCH_ASSOC);
         </nav>
     <?php } elseif ($_SESSION['role'] == "employee") { ?>
         <nav class="navigation-icons-bar">
-            <ul>
+            <ul id="navigationlistID">
                 <li><div class="user-p"> <img src="./user.jpg"> <h4><?php echo $_SESSION['username']; ?></h4> </div> </li>
                 <li><a href="index.php"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a></li>
                 <li><a href="employee-task.php"><i class="fa fa-tasks" aria-hidden="true"></i><span>Tasks</span></a></li>
@@ -80,7 +80,7 @@ $notifications = $notificationStmt->fetchAll(PDO::FETCH_ASSOC);
     <ul id="notifications">
         <?php foreach ($notifications as $notification) { ?>
             <li>
-                <a href="notifications-read.php?id=<?= $notification['id'] ?>">
+                <a href="notifications-read.php?notifications_id=<?= $notification['id'] ?>">
                     <?= $notification['is_read'] == 0 ? "<mark>" : "" ?>
                     <?= $notification['type'] . ": " . $notification['message'] ?>
                     <?= $notification['is_read'] == 0 ? "</mark>" : "" ?>

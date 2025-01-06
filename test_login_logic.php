@@ -67,7 +67,7 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
                     header("Location: index.php");
                 } else {
                     // Unknown role
-                    $errormessage = "An unknown error has occurred.";
+                    $errormessage = "Role Undefined.";
                     header("Location: login.php?error=" . urlencode($errormessage));
                     exit();
                 }
@@ -95,7 +95,7 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
 
 } else {
     // The form was not submitted properly
-    $errormessage = "An unknown error has occurred.";
+    $errormessage = "Form was submitted incorrectly.";
     header("Location: login.php?error=" . urlencode($errormessage));
     exit();
 }

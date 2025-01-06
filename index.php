@@ -52,11 +52,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                         <span><?=$num_task?> All Tasks</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-window-close-o"></i>
+                        <i class="fa-solid fa-rectangle-xmark"></i>
                         <span><?=$overdue_task?> Overdue</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-clock-o"></i>
+                        <i class="fa-solid fa-clock"></i>
                         <span><?=$nodeadline_task?> No Deadline</span>
                     </div>
                     <div class="dashboard-item">
@@ -68,7 +68,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                         <span><?=$overdue_task?> Notifications</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-square-o"></i>
+                        <i class="fa-solid fa-clock-rotate-left"></i> 
                         <span><?=$pending?> Pending</span>
                     </div>
                     <div class="dashboard-item">
@@ -76,7 +76,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                         <span><?=$in_progress?> In progress</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-check-square-o"></i>
+                        <i class="fa fa-check-square"></i>
                         <span><?=$completed?> Completed</span>
                     </div>
                 </div>
@@ -87,15 +87,15 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                         <span><?=$num_my_task?> My Tasks</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-window-close-o"></i>
+                        <i class="fa-solid fa-rectangle-xmark"></i>
                         <span><?=$overdue_task?> Overdue</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-clock-o"></i>
+                        <i class="fa fa-clock"></i>
                         <span><?=$nodeadline_task?> No Deadline</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-square-o"></i>
+                        <i class="fa fa-clock-rotate-left"></i>
                         <span><?=$pending?> Pending</span>
                     </div>
                     <div class="dashboard-item">
@@ -103,7 +103,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                         <span><?=$in_progress?> In progress</span>
                     </div>
                     <div class="dashboard-item">
-                        <i class="fa fa-check-square-o"></i>
+                        <i class="fa fa-check-square"></i>
                         <span><?=$completed?> Completed</span>
                     </div>
                 </div>
@@ -111,10 +111,10 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
         </section>
     </div>
 
-    <script type="text/javascript">
-        var active = document.querySelector("#navList li:nth-child(1)");
-        active.classList.add("active");
-    </script>
+<script type="text/javascript">
+    var active = document.querySelector("#navigationlistID li:nth-child(2)");
+    active.classList.add("active");
+</script>
 </body>
 </html>
 
